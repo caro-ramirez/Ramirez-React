@@ -22,3 +22,35 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Dependencias
+node_modules/
+
+# Archivos de construcción
+dist/
+build/
+
+# Caché
+.cache/
+
+# Archivos específicos del IDE
+.idea/
+.vscode/
+
+# Archivos de configuración del usuario
+.DS_Store
+Thumbs.db
+
+# Archivos de log
+*.log
+
+# Archivos de salida de pruebas
+coverage/
+
+# Archivos temporales
+temp/
+tmp/
+
+# Archivos de entorno
+.env
+.env.local
