@@ -6,7 +6,9 @@ function Item({ product }) {
 
   return (
     <div className="card">
-      <img src={img} className="card-img-top" alt={name} />
+      <div className="text-center"> 
+        <img src={img} className="card-img-top product-image" alt={name} />
+      </div>
       <div className="card-body">
         <h5 className="card-title">{name}</h5>
         <p className="card-text">${price}</p>

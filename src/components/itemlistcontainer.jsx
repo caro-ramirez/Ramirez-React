@@ -30,7 +30,7 @@ function ItemListContainer({ greeting }) {
   if (greeting === "¡Descubre los mejores productos para tu cabello!") {
     return (
       <div>
-        <img src="../assets/peluqueria.jpg" alt="Peluqueria Cozzi" />{" "}
+        <img src="../../src/assets/pelu2.png" alt="Peluqueria Cozzi" />
         <h1>Pablo Cozzi, tu peluqueria</h1>
       </div>
     );
@@ -38,11 +38,17 @@ function ItemListContainer({ greeting }) {
 
   return (
     <div>
-      <ProductFilter onCategoryChange={handleCategoryChange} />
-      {filteredProducts.map((product) => (
-        <Item key={product.id} product={product} />
-      ))}
-    </div>
+        <ProductFilter onCategoryChange={handleCategoryChange} />
+        <div className="container">
+          <div className="row">
+            {filteredProducts.map((product) => (
+              <div className="col-md-4 mb-4" key={product.id}>
+                <Item product={product} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
   );
 }
 
