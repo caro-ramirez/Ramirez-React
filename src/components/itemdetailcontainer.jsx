@@ -1,26 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { getProductById } from '../asyncMock'; // Asegúrate de tener la función getProductById en asyncMock.js
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { getProducts } from "../asyncMock";
+import Item from "./Item";
+import ProductFilter from "./ProductFilter";
 
-function ItemDetailContainer() {
-  const [product, setProduct] = useState(null);
-  const { itemId } = useParams();
+function ItemListContainer({ greeting }) {
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const { categoryId } = useParams();
 
   useEffect(() => {
-    getProductById(itemId)
-      .then(response => {
-        setProduct(response);
-      })
-      .catch(error => {
-        console.error('Error al obtener el producto:', error);
-      });
-  }, [itemId]);
+    if (greeting === "Productos") {
+      getProducts()
+        .then((response) => {
+          setProducts(response);
+          setFilteredProducts(response);
+        })
+        .catch((error) => {
+          console.error("Error al obtener los productos:", error);
+        });
+    }
+  }, [greeting]);
+
+  const handleCategoryChange = (category) => {
+    const filtered = category
+      ? products.filter((product) => product.category === category)
+      : products;
+    setFilteredProducts(filtered);
+  };
+
+  if (greeting === "¡Descubre los mejores productos para tu cabello!") {
+    return (
+      <div>
+        {/* Reemplaza con la ruta a tu imagen */}
+        <img src="/ruta/a/tu/imagen.jpg" alt="Imagen de inicio" />
+        <h1>Título de inicio</h1>
+      </div>
+    );
+  }
 
   return (
     <div>
-      {/* Aquí mostrarías el detalle del producto */}
+      <ProductFilter onCategoryChange={handleCategoryChange} />
+      {filteredProducts.map((product) => (
+        <Item key={product.id} product={product} />
+      ))}
     </div>
   );
 }
 
-export default ItemDetailContainer;
+export default ItemListContainer;
