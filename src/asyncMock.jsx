@@ -12,7 +12,7 @@ const products = [
     name: "Acondicionador Nutritivo",
     price: 1500,
     category: "acondicionador",
-    img: "/images/acondicionador-nutritivo.jpg",
+    img: "./src/assets/conditioner.jpg",
     description: "Acondicionador nutritivo para cabellos con frizz.",
   },
   {
@@ -20,7 +20,7 @@ const products = [
     name: "Mascarilla Reparadora",
     price: 2000,
     category: "tratamiento",
-    img: "/images/mascarilla-reparadora.jpg",
+    img: "./src/assets/mascarillareparadora.jpg",
     description: "Mascarilla capilar reparadora para cabellos quebradizos.",
   },
   {
@@ -28,7 +28,7 @@ const products = [
     name: "Cepillo Desenredante",
     price: 800,
     category: "accesorios",
-    img: "/images/cepillo-desenredante.jpg",
+    img: "./src/assets/cepillo.png",
     description: "Cepillo desenredante para todo tipo de cabello.",
   },
   {
@@ -36,7 +36,7 @@ const products = [
     name: "Secador de Pelo Profesional",
     price: 10000,
     category: "accesorios",
-    img: "/images/secador-profesional.jpg",
+    img: "./src/assets/secador.png",
     description: "Secador de pelo profesional con tecnología iónica.",
   },
 ];
