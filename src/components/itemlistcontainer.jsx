@@ -30,7 +30,7 @@ function ItemListContainer({ greeting }) {
   if (greeting === "¡Descubre los mejores productos para tu cabello!") {
     return (
       <div>
-        <img src="./assets/peluqueria.jpg" alt="Peluqueria Cozzi" />{" "}
+        <img src="../assets/peluqueria.jpg" alt="Peluqueria Cozzi" />{" "}
         <h1>Pablo Cozzi, tu peluqueria</h1>
       </div>
     );
