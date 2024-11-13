@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { getProducts, getProductsByCategory } from '../asyncMock'; 
 
 function ItemListContainer({ greeting }) {
+  const [products, setProducts] = useState([]);
+  const { categoryId } = useParams();
+
+  useEffect(() => {
+    const asyncFunc = categoryId ? getProductsByCategory : getProducts;
+
+    asyncFunc(categoryId)
+      .then(response => {
+        setProducts(response);
+      })
+      .catch(error => {
+        console.error('Error al obtener los productos:', error);
+      });
+  }, [categoryId]); 
+
   return (
-    <div className="item-list-container" style={{ border: '2px solid #ccc', padding: '20px', margin: '20px' }}>
-      <p>{greeting}</p>
+    <div>
+      {products.map(product => (
+        <Item key={product.id} product={product} />
+      ))}
     </div>
   );
 }
