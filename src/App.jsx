@@ -15,10 +15,7 @@ function App() {
             <ItemListContainer greeting="¡Descubre los mejores productos para tu cabello!" />
           }
         />
-        <Route
-          path="/products"
-          element={<ItemListContainer greeting="Productos" />}
-        />
+        <Route path="/products" element={<ItemListContainer greeting="Productos" />} />
         <Route path="/item/:itemId" element={<ItemDetailContainer />} />
       </Routes>
     </BrowserRouter>

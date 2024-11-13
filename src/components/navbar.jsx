@@ -31,11 +31,8 @@ function NavBar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/products" className="nav-link">
-                Productos
-              </Link>
+              <Link to="/products" className="nav-link">Productos</Link>
             </li>
-            {/* ... otros links ... */}
           </ul>
           <CartWidget />
         </div>
