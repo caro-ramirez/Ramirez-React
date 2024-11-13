@@ -1,52 +1,49 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { getProducts } from "../asyncMock";
-import Item from "./Item";
-import ProductFilter from "./ProductFilter";
+import { getProductById } from "../asyncMock";
+import { CartContext } from "./CartContext";
 
-function ItemListContainer({ greeting }) {
-  const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const { categoryId } = useParams();
+function ItemDetailContainer() {
+  const [product, setProduct] = useState(null);
+  const { itemId } = useParams();
+
+  const { addItem } = useContext(CartContext); 
 
   useEffect(() => {
-    if (greeting === "Productos") {
-      getProducts()
-        .then((response) => {
-          setProducts(response);
-          setFilteredProducts(response);
-        })
-        .catch((error) => {
-          console.error("Error al obtener los productos:", error);
-        });
-    }
-  }, [greeting]);
+    getProductById(itemId)
+      .then((response) => {
+        setProduct(response);
+      })
+      .catch((error) => {
+        console.error("Error al obtener el producto:", error);
+      });
+  }, [itemId]);
 
-  const handleCategoryChange = (category) => {
-    const filtered = category
-      ? products.filter((product) => product.category === category)
-      : products;
-    setFilteredProducts(filtered);
-  };
-
-  if (greeting === "¡Descubre los mejores productos para tu cabello!") {
-    return (
-      <div>
-        {/* Reemplaza con la ruta a tu imagen */}
-        <img src="/ruta/a/tu/imagen.jpg" alt="Imagen de inicio" />
-        <h1>Título de inicio</h1>
-      </div>
-    );
+  if (!product) {
+    return <div>Cargando producto...</div>;
   }
 
+  const handleAddToCart = () => {
+    addItem(product, 1);
+  };
+
   return (
-    <div>
-      <ProductFilter onCategoryChange={handleCategoryChange} />
-      {filteredProducts.map((product) => (
-        <Item key={product.id} product={product} />
-      ))}
+    <div className="container my-5">
+      <div className="row">
+        <div className="col-md-6">
+          <img src={product.img} alt={product.name} className="img-fluid" />
+        </div>
+        <div className="col-md-6">
+          <h2>{product.name}</h2>
+          <p className="lead">${product.price}</p>
+          <p>{product.description}</p>
+          <button className="btn btn-primary" onClick={handleAddToCart}>
+            Agregar al carrito
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
 
-export default ItemListContainer;
+export default ItemDetailContainer;
