@@ -1,36 +1,39 @@
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "./firebase"; 
-
-// ... (tu array de productos products) ...
+import { collection, getDocs, query, where, doc, getDoc } from "firebase/firestore";
+import { db } from "./firebase/firebase.js";
 
 export const getProducts = async () => {
-  const productsCollection = collection(db, 'items'); 
+  const productsCollection = collection(db, "productos");
   const productsSnapshot = await getDocs(productsCollection);
-  const productList = productsSnapshot.docs.map(doc => {
+  const productList = productsSnapshot.docs.map((doc) => {
     return { id: doc.id, ...doc.data() };
   });
   return productList;
 };
 
-export const getProductsByCategory = (categoryId) => {
-  console.log("Filtrando productos por categoría:", categoryId); 
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      // Asegúrate de que la propiedad 'category' existe en tus productos
-      const filteredProducts = products.filter(
-        (product) => product.category === categoryId
-      );
-      console.log("Productos filtrados:", filteredProducts); 
-      resolve(filteredProducts);
-    }, 500);
+export const getProductsByCategory = async (categoryId) => {
+  console.log("Filtrando productos por categoría:", categoryId);
+
+  const productsCollection = collection(db, "productos");
+  const q = query(productsCollection, where("category", "==", categoryId));
+  const productsSnapshot = await getDocs(q);
+
+  const productList = productsSnapshot.docs.map((doc) => {
+    return { id: doc.id, ...doc.data() };
   });
+  if (productList.length===0){
+    console.log("No se encontraron productos para la categoria:", categoryId);
+  }
+  return productList;
 };
 
-export const getProductById = (itemId) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const product = products.find((product) => product.id === itemId);
-      resolve(product);
-    }, 500);
-  });
+export const getProductById = async (itemId) => {
+  const productRef = doc(db, "productos", itemId); 
+  const productSnapshot = await getDoc(productRef);
+
+  if (productSnapshot.exists()) {
+    return { id: productSnapshot.id, ...productSnapshot.data() };
+  } else {
+    console.log("El producto no existe");
+    return null; 
+  }
 };

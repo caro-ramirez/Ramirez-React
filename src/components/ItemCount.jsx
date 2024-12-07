@@ -15,16 +15,20 @@ function ItemCount({ stock, initial, onAdd }) {
     }
   };
 
-  const handleClick = () => {
-    onAdd(count);
-  };
-
   return (
-    <div>
-      <button onClick={handleDecrement}>-</button>
-      <span>{count}</span>
-      <button onClick={handleIncrement}>+</button>
-      <button onClick={handleClick}>Agregar al carrito</button>
+    <div className="d-flex align-items-center"> {/* Alinea los elementos horizontalmente */}
+      <div className="input-group"> {/* Usa input-group para el contador */}
+        <button className="btn btn-outline-secondary" onClick={handleDecrement}>
+          -
+        </button>
+        <span className="form-control text-center">{count}</span> {/* Centra el número */}
+        <button className="btn btn-outline-secondary" onClick={handleIncrement}>
+          +
+        </button>
+      </div>
+      <button className="btn btn-success ms-3" onClick={() => onAdd(count)}> {/* Agrega un margen izquierdo */}
+        Agregar al carrito
+      </button>
     </div>
   );
 }

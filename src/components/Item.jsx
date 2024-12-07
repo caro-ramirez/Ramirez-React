@@ -7,7 +7,7 @@ function Item({ product }) {
   return (
     <div className="card">
       <div className="text-center"> 
-        <img src={img} className="card-img-top product-image" alt={name} />
+        <img src={product.img} className="card-img-top product-image" alt={name} />
       </div>
       <div className="card-body">
         <h5 className="card-title">{name}</h5>
