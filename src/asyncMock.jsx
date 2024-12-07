@@ -1,58 +1,22 @@
-const products = [
-  {
-    id: "1",
-    name: "Shampoo Hidratante",
-    price: 1200,
-    category: "shampoo",
-    img: "./src/assets/shampoo.jpg", 
-    description: "Shampoo hidratante para cabellos secos y dañados.",
-  },
-  {
-    id: "2",
-    name: "Acondicionador Nutritivo",
-    price: 1500,
-    category: "acondicionador",
-    img: "./src/assets/conditioner.jpg",
-    description: "Acondicionador nutritivo para cabellos con frizz.",
-  },
-  {
-    id: "3",
-    name: "Mascarilla Reparadora",
-    price: 2000,
-    category: "tratamiento",
-    img: "./src/assets/mascarillareparadora.jpg",
-    description: "Mascarilla capilar reparadora para cabellos quebradizos.",
-  },
-  {
-    id: "4",
-    name: "Cepillo Desenredante",
-    price: 800,
-    category: "accesorios",
-    img: "./src/assets/cepillo.png",
-    description: "Cepillo desenredante para todo tipo de cabello.",
-  },
-  {
-    id: "5",
-    name: "Secador de Pelo Profesional",
-    price: 10000,
-    category: "accesorios",
-    img: "./src/assets/secador.png",
-    description: "Secador de pelo profesional con tecnología iónica.",
-  },
-];
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "./firebase"; 
 
-export const getProducts = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(products);
-    }, 500); 
+// ... (tu array de productos products) ...
+
+export const getProducts = async () => {
+  const productsCollection = collection(db, 'items'); 
+  const productsSnapshot = await getDocs(productsCollection);
+  const productList = productsSnapshot.docs.map(doc => {
+    return { id: doc.id, ...doc.data() };
   });
+  return productList;
 };
 
 export const getProductsByCategory = (categoryId) => {
   console.log("Filtrando productos por categoría:", categoryId); 
   return new Promise((resolve) => {
     setTimeout(() => {
+      // Asegúrate de que la propiedad 'category' existe en tus productos
       const filteredProducts = products.filter(
         (product) => product.category === categoryId
       );
