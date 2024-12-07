@@ -1,6 +1,6 @@
 // CartContext.jsx
 import { createContext, useState, useEffect } from "react";
-import { db } from "./firebase"; // Importa tu configuración de Firebase
+import { db } from "../firebase/firebase.js"; // Importa tu configuración de Firebase
 import {
   collection,
   addDoc,

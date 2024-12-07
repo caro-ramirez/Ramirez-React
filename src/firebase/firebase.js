@@ -17,7 +17,23 @@ const firebaseConfig = {
   appId: "1:170384687284:web:fa935d70b335f32db0d7e1"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
+//obtener un producto
+export async function getSingleProduct(id){
+  const documentRef = doc(db, 'productos', id);
+
+  try{
+    const snapshot = await getDoc(documentRef);
+    if (snapshot.exists()){
+      return snapshot.data();
+    }
+    else{
+      console.log('El documento no existe!');
+    }
+  }
+  catch (error) {
+    console.error('Error al obtener el documento!');
+  }
+}
